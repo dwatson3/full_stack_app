@@ -1,0 +1,47 @@
+/*.locate-beer {
+	text-align: center;
+}*/
+
+/*.locate-beer {
+	text-align: right;
+	float: left;
+}
+
+.brewery-name {
+	position: relative;
+	float: left;
+}*/
+
+h2, h4 {
+	text-align: center;
+}
+
+h4 {
+	margin-top: 30px;
+}
+
+.brewery-name {
+	margin-top: 30px;
+}
+
+.search-fields {
+	float: left;
+	margin-top: 30px;
+	text-align: right;
+}
+
+.page-links {
+	float: left;
+	left: 30px;
+	margin-top: 20px; 
+	position: relative;
+}
+
+.searchin {
+	color: transparent;
+}
+
+.new-user {
+	margin-top: 40px;
+	position: relative;
+}

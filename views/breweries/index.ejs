@@ -1,0 +1,37 @@
+<!-- This is my breweries INDEX page -->
+
+<% include ../partials/header %>
+
+<h2>This is my main search page for Brewery Finder</h2>
+
+<form action=""></form>
+
+<h4>Logo and/or Map should be here, and map should appear on the SHOW page</h4>
+
+<div class="search-fields">
+	<div class="locate-beer">
+		<span>Location</span>
+
+			<input type="text" class="searchin" style="width: 250px" placeholder="Enter a City & State, Address, or Zip Code">
+		
+			<button type="submit">Find Breweries</button>
+	</div>
+
+	<div class="brewery-name">
+		<span>Find Brewery By Name</span>
+		
+			<input type="text" class="searchin" style="width: 140px" placeholder="Enter a Brewery Name">
+		
+			<button type="submit">Find Breweries</button>
+	</div>
+<!-- </div> -->
+
+	<div class="page-links">
+		<a href="/login">Login</a>
+		<br>
+		<a href="/signup" class="new-user">New user? Signup here</a>
+	</div>
+</div>	
+
+
+<% include ../partials/footer %>
