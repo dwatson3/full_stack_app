@@ -5,10 +5,12 @@ var express = require("express"),
 app = express(),
 request = require('request'),
 dotenv = require('dotenv').load(), // putting in the dotenv information
+
 bodyParser = require("body-parser"),
 methodOverride = require('method-override'),
 db = require('./models'),
 session = require('cookie-session'),
+
 morgan = require('morgan'),
 loginMiddleware = require('./middleware/loginHelper'),
 routeMiddleware = require('./middleware/routeHelper'); // why is this called routeMiddleware?

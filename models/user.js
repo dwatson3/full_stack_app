@@ -6,10 +6,11 @@ mongoose.set('debug', true);
 
 var userSchema = new mongoose.Schema({
 	
-	email: {
+	username: {
 		type: String,
 		lowercase: true,
-		required: true
+		required: true,
+		unique: true
 	},
 
 	password: {
