@@ -4,34 +4,76 @@
 
 <h2>This is my main search page for Brewery Finder</h2>
 
-<form action=""></form>
-
 <h4>Logo and/or Map should be here, and map should appear on the SHOW page</h4>
+
+<form action="/breweries/index" method="GET">
 
 <div class="search-fields">
 	<div class="locate-beer">
-		<span>Location</span>
-
-			<input type="text" class="searchin" style="width: 250px" placeholder="Enter a City & State, Address, or Zip Code">
-		
-			<button type="submit">Find Breweries</button>
+		<label for="locate">Location:</label>
+			<input type="text" class="searchin" id="locate" name="locate"style="width: 250px">
+			<!-- placeholder="Enter a City & State, Address, or Zip Code" -->
+			<button type="submit" class="locate">Find Breweries</button>
 	</div>
 
 	<div class="brewery-name">
-		<span>Find Brewery By Name</span>
-		
-			<input type="text" class="searchin" style="width: 140px" placeholder="Enter a Brewery Name">
-		
-			<button type="submit">Find Breweries</button>
+		<label for="breweryName">Find Brewery By Name:</label>
+			<input type="text" class="searchin" id="breweryName" name="breweryName" style="width: 140px" placeholder="Enter a Brewery Name">
+			<button type="submit" class="brew">Find Breweries</button>
 	</div>
 <!-- </div> -->
+
+	<div class="search-beer">
+		<label for="beerCurious">Curious about a beer?</label>
+			<input type="text" class="searchin" id="beerCurious" name="beerCurious" placeholder="Enter a Beer Here">
+			<button type="submit" class="learn-more">Find A Beer</button>
+	</div>
+
+	</form>
 
 	<div class="page-links">
 		<a href="/login">Login</a>
 		<br>
 		<a href="/signup" class="new-user">New user? Signup here</a>
 	</div>
+
+	<ul class="form">
+		<div class="form-group">
+			<li>Location:</li>
+		</div>
+
+		<div class="form-group">
+			<li>Brewery:</li>
+		</div>
+
+		<div class="form-group">
+			<li>Beer:</li>
+		</div>
+
+
+	<div class="display-results"></div>
 </div>	
+
+<!-- Begin Beer Mapping Blog/Site Map - http://beermapping.com -->
+<!-- <div class="beer-map">
+	<div style="line-height: 1px">
+		<div style="width:450px; height:40px; overflow:hidden; line-height: 100%; background-color:#466A8E">
+			<a href="http://beermapping.com" title="The Beer Mapping Project">
+				<img alt="The Beer Mapping Project" title="The Beer Mapping Project" src="http://beermapping.com/images/beermappingbloglogo.gif" style="height: 20px; width: 170px; margin-top: 2px; margin-left: 139px;border:none; "/></a>
+				<div style="text-align:center">
+
+				<a href="http://beermapping.com/maps/reviews/reviews.php?locid=8021" title="see reviews" style="font-family:arial; color:#FFFFFF; font-size: 10px !important; ">Les 3 Brasseurs - Montpellier</a></div></div>
+				<iframe frameborder="0" width="450" height="300" scrolling="no" src="http://beermapping.com/maps/blogproxy.php?locid=8021&amp;d=1&amp;type=norm"></iframe> -->
+
+				<!-- <div style="width:450px; height:18px; text-align : center; line-height: 100%; background-color:#466A8E;"> -->
+				<!-- <a href="http://beermapping.com/forum/" style="font-family:arial; color:#FFFFFF; font-size: 10px !important; " title="Beer Trips Discussion at The Beer Mapping Forums">Forums</a> 
+				<span style="color:#CCCCCC;">|</span> 
+				<a href="http://beermapping.com/brewery-maps/" style="font-family:arial; color:#FFFFFF; font-size: 10px !important; " title="Plan Brewery Travel with International Brewery Maps">Brewery Maps</a> 
+				<span style="color:#CCCCCC;">|</span> 
+				<a href="http://beermapping.com/city-beer-maps/" style="font-family:arial; color:#FFFFFF; font-size: 10px !important; " title="Plan Beer Trips with our City Beer Maps">City Maps</a> -->
+	<!-- 	</div>
+	</div>
+</div> --><!-- End Beer Mapping Blog/Site Map -->
 
 
 <% include ../partials/footer %>

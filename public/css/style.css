@@ -38,10 +38,20 @@ h4 {
 }
 
 .searchin {
-	color: transparent;
+	margin-top: 20px;
+/*	color: transparent;*/
 }
 
 .new-user {
 	margin-top: 40px;
 	position: relative;
+}
+
+.beer-map {
+	left: 20px;
+	position: relative;
+}
+
+.form {
+	list-style-type: none;
 }

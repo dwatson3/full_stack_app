@@ -1,10 +1,11 @@
-// Let the shitshow begin
+// Let the show begin
 
 // calling in the multiple modules 
 var express = require("express"),
 app = express(),
 request = require('request'),
 dotenv = require('dotenv').load(), // putting in the dotenv information
+favicon = require('serve-favicon'),
 
 bodyParser = require("body-parser"),
 methodOverride = require('method-override'),
@@ -31,13 +32,6 @@ app.use(session({
 	name: "daphnes-chip" // Not sure why this is here
 }));
 
-// db.connect({
-// 	host: process.env.DB_HOST,
-// 	username: process.env.DB_USER,
-// 	password: process.env.DB_PASS,
-// 	name: process.env.DB_NAME
-// });
-
 // using loginMiddleware
 app.use(loginMiddleware);
 console.log(loginMiddleware);
@@ -51,23 +45,54 @@ app.get('/', function(request, response) {
 	// maybe res.redirect('/brewsearch') instead?
 });
 
-
-
 // User INDEX page
-app.get('/users/index', function(request, response) {
-	// routeMiddleware.preventLoginSignup
+app.get('/users/index', routeMiddleware.preventLoginSignup, function(request, response) {
 	response.render('users/index');
 })
 
 // User LOGIN page
-app.get('/login', function(request, response) {
+// check to see if this is working?
+app.get('/login', routeMiddleware.preventLoginSignup, function(request, response) {
 	response.render('users/login');
 })
 
+// CREATE page for the LoggedIn User
+// check to see if this is working?
+app.post('/login', function(req, res) {
+	db.User.authenticate(req.body.user, // something is wrong here with mongod/mongoose
+		function (err, user) {
+			if (!err && user !== null) {
+				req.login(user);
+				response.redirect("/breweries");
+			} else {
+				console.log(err)
+				response.render('users/login', {err:err});
+			}
+	});
+});
 
 // User SIGNUP page
-app.get('/signup', function(request, response) {
+// check to see if this is working?
+app.get('/signup', routeMiddleware.preventLoginSignup, function(request, response) {
 	response.render('users/signup');
+})
+
+// User SIGNUP page to post information
+app.post('/signup', function(request, response) {
+	db.User.create(request.body.user, function(err, user) {
+		if (user) {
+			console.log(user)
+			request.login(user)
+			response.redirect('/breweries')
+		} else {
+			console.log(err)
+			response.render('errors/404');
+		}
+	})
+})
+
+// LOGOUT route info page
+app.get('/logout', function(request, response) {	
 })
 
 // // MAIN INDEX for Page, this works
@@ -79,7 +104,7 @@ app.get('/signup', function(request, response) {
 // MAIN INDEX for Page trying out server side
 app.get('/breweries', function(req, res) {
 	// var url = 'http://api.brewerydb.com/v2/styles?key=' + process.env.BREWERY_SECRET; 
-	var url = "http://api.brewerydb.com/v2/styles?key=" + process.env.BREWERY_SECRET
+	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET
 		console.log(url);
 			
 		request.get(url, function(error, response, body) {
@@ -98,6 +123,26 @@ app.get('/breweries', function(req, res) {
 			}
 		});	
 });
+
+// posting all of my search results data on the same page
+app.post('/breweries', function(req, res) {
+	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
+		request.get(url,
+			function(error, response, body) {
+				if(error) {
+					console.log(error)
+				} 
+				else {
+					var breweryData = JSON.parse(body). // find the data in location to populate here
+					res.render("breweries", {breweries:breweries});
+					console.log(breweryData)
+				} 
+				// else {
+				// 	res.render("breweries", {breweries:breweries});
+				// }
+			})
+		res.render("breweries", {breweries: "Search Here"})
+})
 
 // 		response.status(500).send("You got an error - " + error);
 // 		} else if (!error && response.statusCode >= 300) {
