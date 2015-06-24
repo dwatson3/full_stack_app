@@ -3,7 +3,7 @@ $(function() {
 		$.getJSON("/breweries").done(function(data) {
 			data.breweries.forEach(function(brewery) {
 				var Html = breweryHtml(brewery);
-				$('body').append(html);
+				$('body').append(Html);
 			});
 		});		
 	}
@@ -14,7 +14,7 @@ $(function() {
       	    '<p><a href="/breweries/' + brewery.state + '/edit">Edit </a></p></div>';
 	}
 
-loadBreweries();
+// loadBreweries();
 
 // what if I don't want my Search Field to be hidden?
 
@@ -44,6 +44,7 @@ loadBreweries();
 
 	$('#newBrewSearchForm').submit(function(e) {
 		e.preventDefault();
+		console.log("submit");
 
 		var locate = $('#locate').val();
 		var breweryName = $('#breweryName').val();
@@ -52,16 +53,21 @@ loadBreweries();
 		var data = {brewery: {location: locate, name:breweryName, beerType:beerCurious}};
 
 		$.ajax({
-			type: 'POST',
+			// type: 'POST',
+			method: "GET",
 			url: '/breweries',
+			// url: "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET
 			data: data,
 			dataType: 'json',
-		}).done(function(data) {
-			var myHtml = breweryHtml;
-			$('body').append(myHtml);
+		}).done(function(breweryApiResponse) {
+			var breweries = breweryApiResponse.data;
+			breweries.forEach(function(brewery) {
+				$('body').append(brewery.name);
+			})
 			$('newBrewSearchForm').remove();
-			console.log(data);
-			});
+			}).fail(function(error) {
+				console.log("error", error);
+			})
 		});				
 	});
 

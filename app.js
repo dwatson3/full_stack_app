@@ -105,7 +105,7 @@ app.get('/logout', function(request, response) {
 
 // MAIN INDEX for Page trying out server side
 app.get('/breweries', function(req, res) {
-	// var url = 'http://api.brewerydb.com/v2/styles?key=' + process.env.BREWERY_SECRET; 
+	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET; 
 	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET
 		console.log(url);
 			
@@ -118,7 +118,7 @@ app.get('/breweries', function(req, res) {
 				res.render('errors/404');
 
 			} else if (!error && response.statusCode === 200) {
-				res.render('breweries/index', JSON.parse(body));
+				res.end(body, {"content-type":"application/json"});
 
 			} else {
 				res.render('errors/404');

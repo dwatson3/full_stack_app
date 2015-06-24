@@ -8,6 +8,9 @@ var brewerySchema = new mongoose.Schema({ // creating a new Schema
 	// city: String,
 	// state: String
 
+// saving the breweryI_id in this model
+// so that it will be easier to remember/retrieve in the database
+	breweryDB_id: String,
 	location: String,
 	name: String,
 	beerType: String
