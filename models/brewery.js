@@ -3,10 +3,14 @@
 var mongoose = require("mongoose");
 
 var brewerySchema = new mongoose.Schema({ // creating a new Schema
-	name: String,
+	// name: String,
+	// location: String,
+	// city: String,
+	// state: String
+
 	location: String,
-	city: String,
-	state: String
+	name: String,
+	beerType: String
 });
 
 var Brewery = mongoose.model("Brewery", brewerySchema); // creating a new Model

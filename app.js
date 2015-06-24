@@ -124,25 +124,42 @@ app.get('/breweries', function(req, res) {
 		});	
 });
 
-// posting all of my search results data on the same page
 app.post('/breweries', function(req, res) {
-	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
-		request.get(url,
-			function(error, response, body) {
-				if(error) {
-					console.log(error)
-				} 
-				else {
-					var breweryData = JSON.parse(body). // find the data in location to populate here
-					res.render("breweries", {breweries:breweries});
-					console.log(breweryData)
-				} 
-				// else {
-				// 	res.render("breweries", {breweries:breweries});
-				// }
-			})
-		res.render("breweries", {breweries: "Search Here"})
-})
+	var breweries = new db.Brewery(req.body.brewery);
+		brewery.save(function(err, brewery) {
+			res.format({
+				'text/html': function() {
+					res.redirect('/breweries');
+				},
+				'application/json': function() {
+					res.send(brewery);
+				},
+				'default': function() {
+					res.status(406).send('Not Acceptable');
+				}
+			});
+		});
+});
+
+// posting all of my search results data on the same page
+// app.post('/breweries', function(req, res) {
+// 	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
+// 		request.get(url,
+// 			function(error, response, body) {
+// 				if(error) {
+// 					console.log(error)
+// 				} 
+// 				else {
+// 					var breweryData = JSON.parse(body). // find the data in location to populate here
+// 					res.render("breweries", {breweries:breweries});
+// 					console.log(breweryData)
+// 				} 
+// 				// else {
+// 				// 	res.render("breweries", {breweries:breweries});
+// 				// }
+// 			})
+// 		res.render("breweries", {breweries: "Search Here"})
+// })
 
 // 		response.status(500).send("You got an error - " + error);
 // 		} else if (!error && response.statusCode >= 300) {
