@@ -5,7 +5,6 @@ var express = require("express"),
 app = express(),
 request = require('request'),
 dotenv = require('dotenv').load(), // putting in the dotenv information
-favicon = require('serve-favicon'),
 
 bodyParser = require("body-parser"),
 methodOverride = require('method-override'),
@@ -41,7 +40,8 @@ console.log(loginMiddleware);
 
 // ROOT
 app.get('/', function(request, response) {
-	response.redirect('/breweries');
+	response.render('layout');
+	// response.redirect('/breweries');
 	// maybe res.redirect('/brewsearch') instead?
 });
 
