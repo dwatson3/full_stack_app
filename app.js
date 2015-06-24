@@ -79,7 +79,8 @@ app.get('/signup', routeMiddleware.preventLoginSignup, function(request, respons
 
 // User SIGNUP page to post information
 app.post('/signup', function(request, response) {
-	db.User.create(request.body.user, function(err, user) {
+	db.User.create(request.body.user, function(err, user) { // undefined is not a function, there's something wrong with this line. DUNNO
+	// I'm not able to submit the signup username/password and redirect to the index page	
 		if (user) {
 			console.log(user)
 			request.login(user)
@@ -100,6 +101,7 @@ app.get('/logout', function(request, response) {
 // 	// not sure if Mongoose should be included in here?
 // 	response.render("breweries/index");
 // })
+
 
 // MAIN INDEX for Page trying out server side
 app.get('/breweries', function(req, res) {
@@ -124,9 +126,14 @@ app.get('/breweries', function(req, res) {
 		});	
 });
 
+// NEW
+app.get('/breweries/new', function(req, res) {
+
+})
+
 app.post('/breweries', function(req, res) {
 	var breweries = new db.Brewery(req.body.brewery);
-		brewery.save(function(err, brewery) {
+		breweries.save(function(err, brewery) {
 			res.format({
 				'text/html': function() {
 					res.redirect('/breweries');

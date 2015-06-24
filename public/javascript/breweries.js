@@ -8,19 +8,21 @@ $(function() {
 		});		
 	}
 
-function breweryHtml(brewery) {
-	return '<br><div data-id="' + brewery._id + '"><p><a href="/breweries/' + brewery._id + '/">' + brewery.name + 
-          '</a></p><p>' + brewery.location + '</p><p>' + brewery.city + '</p>'
-          '<p><a href="/breweries/' + brewery.state + '/edit">Edit </a></p></div>';
-}
+	function breweryHtml(brewery) {
+		return '<br><div data-id="' + brewery._id + '"><p><a href="/breweries/' + brewery._id + '/">' + brewery.name + 
+    	      '</a></p><p>' + brewery.location + '</p><p>' + brewery.city + '</p>'
+      	    '<p><a href="/breweries/' + brewery.state + '/edit">Edit </a></p></div>';
+	}
 
 loadBreweries();
 
-$('#newBreweryLink').click(function(e) {
+// what if I don't want my Search Field to be hidden?
 
-	e.preventDefault();
+	$('#newBreweryLink').click(function(e) {
 
-	var html = '<br><form id="newBrewSearchForm" action="#" method="POST' +
+		e.preventDefault();
+
+			var html = '<br><form id="newBrewSearchForm" action="#" method="POST' +
 						 
 						 '<div class="locate-beer">' +
 						 '<label for="locate-beer">Location:</label>' +
@@ -38,30 +40,30 @@ $('#newBreweryLink').click(function(e) {
 
 						 '</form>';
 
-$('body h2').after(html);
+	$('body h4').after(html);
 
-$('#newBrewSearchForm').submit(function(e) {
-	e.preventDefault();
+	$('#newBrewSearchForm').submit(function(e) {
+		e.preventDefault();
 
-	var locate = $('#locate').val();
-	var breweryName = $('#breweryName').val();
-	var beerCurious = $('#beerCurious').val();
+		var locate = $('#locate').val();
+		var breweryName = $('#breweryName').val();
+		var beerCurious = $('#beerCurious').val();
 
-	var data = {brewery: {location: locate, name:breweryName, beerType:beerCurious}};
+		var data = {brewery: {location: locate, name:breweryName, beerType:beerCurious}};
 
-	$.ajax({
-		type: 'POST',
-		url: '/breweries',
-		data: data,
-		dataType: 'json',
-	}).done(function(data) {
-		var myHtml = breweryHtml;
-		$('body').append(myHtml);
-		$('newBrewSearchForm').remove();
-		console.log(data);
-		});
-	});				
-});
+		$.ajax({
+			type: 'POST',
+			url: '/breweries',
+			data: data,
+			dataType: 'json',
+		}).done(function(data) {
+			var myHtml = breweryHtml;
+			$('body').append(myHtml);
+			$('newBrewSearchForm').remove();
+			console.log(data);
+			});
+		});				
+	});
 
 
 
