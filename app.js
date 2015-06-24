@@ -1,19 +1,20 @@
 // Let the show begin
 
 // calling in the multiple modules 
-var express = require("express"),
-app = express(),
-request = require('request'),
-dotenv = require('dotenv').load(), // putting in the dotenv information
+var express = require("express");
+var app = express();
+var request = require('request');
+var dotenv = require('dotenv').load(); // putting in the dotenv information
 
-bodyParser = require("body-parser"),
-methodOverride = require('method-override'),
-db = require('./models'),
-session = require('cookie-session'),
+var bodyParser = require("body-parser");
+var methodOverride = require('method-override');
+var db = require('./models');
+var session = require('cookie-session');
+var url = require("url");
 
-morgan = require('morgan'),
-loginMiddleware = require('./middleware/loginHelper'),
-routeMiddleware = require('./middleware/routeHelper'); // why is this called routeMiddleware?
+var morgan = require('morgan');
+var loginMiddleware = require('./middleware/loginHelper');
+var routeMiddleware = require('./middleware/routeHelper'); // why is this called routeMiddleware?
 
 
 // I'm not sure if I should be changing the host and user info in the .env file?
@@ -106,11 +107,13 @@ app.get('/logout', function(request, response) {
 // MAIN INDEX for Page trying out server side
 app.get('/breweries', function(req, res) {
 	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET; 
-	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET
-		console.log(url);
-			
-		request.get(url, function(error, response, body) {
-			console.log(response);
+	// var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
+	console.log(req.query);
+	var searchUrl = "http://api.brewerydb.com/v2/search"
+		searchUrl = url.parse(searchUrl); 
+		searchUrl.query = {type: "brewery", q: req.query.brewery.name, key: process.env.BREWERY_SECRET};
+		searchUrl = url.format(searchUrl)	
+		request.get(searchUrl, function(error, response, body) {
 			if (error) {
 				res.render('errors/404');
 
@@ -127,9 +130,9 @@ app.get('/breweries', function(req, res) {
 });
 
 // NEW
-app.get('/breweries/new', function(req, res) {
+// app.get('/breweries/new', function(req, res) {
 
-})
+// })
 
 app.post('/breweries', function(req, res) {
 	var breweries = new db.Brewery(req.body.brewery);
