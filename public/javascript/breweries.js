@@ -9,9 +9,13 @@ $(function() {
 	}
 
 	function breweryHtml(brewery) {
-		return '<br><div data-id="' + brewery._id + '"><p><a href="/breweries/' + brewery._id + '/">' + brewery.name + 
-    	      '</a></p><p>' + brewery.location + '</p><p>' + brewery.city + '</p>'
-      	    '<p><a href="/breweries/' + brewery.state + '/edit">Edit </a></p></div>';
+		return '<br><ul><div data-id="' + brewery._id + 
+						'"><li><a href="/breweries/' + brewery._id + 
+						'/">' + brewery.name + 
+    	      '</a></li><p>' + brewery.location + 
+    	      '</p><p>' + brewery.city + '</p>'
+      	    '<p><a href="/breweries/' + brewery.state + 
+      	    '/edit">Edit </a></ul></div>';
 	}
 
 // loadBreweries();
