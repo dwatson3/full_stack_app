@@ -34,7 +34,6 @@ app.use(session({
 
 // using loginMiddleware
 app.use(loginMiddleware);
-console.log(loginMiddleware);
 
 // The first set of routes will be for New User, Logging in, and Edit on the index
 // The search page is going to be my main page
@@ -103,29 +102,29 @@ app.get('/logout', function(request, response) {
 
 // Why is nothing working now??
 // MAIN INDEX for Page trying out server side
-// app.get('/search/breweries', function(req, res) {
-	app.get('/brewery/new', function(req, res) {
+app.get('/search/breweries', function(req, res) {
+	// app.get('/brewery/new', function(req, res) {
 	// var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET +
-	console.log(req.query);
+	// console.log(req.query);
 
-	var geocodeUrl = "http://maps.googleapis.com/maps/api/geocode/json?address="
-		geocodeUrl= url.parse(geocodeUrl);
-		geocodeUrl.query = {type: "location", q: req.query.brewery.location, key: process.env.GEOCODE_SECRET};
-		geocodeUrl = url.format(geocodeUrl)
+	// var geocodeUrl = "http://maps.googleapis.com/maps/api/geocode/json?address="
+	// 	geocodeUrl= url.parse(geocodeUrl);
+	// 	geocodeUrl.query = {type: "location", q: req.query.brewery.location, key: process.env.GEOCODE_SECRET};
+	// 	geocodeUrl = url.format(geocodeUrl)
 
-		request.get(geocodeUrl, function(error, response, body) {
-			if (error) {
-				res.render('errors/404');
+	// 	request.get(geocodeUrl, function(error, response, body) {
+	// 		if (error) {
+	// 			res.render('errors/404');
 
-			} else if (!error && response.statusCode != 200) {
-				res.render('errors/404');
+	// 		} else if (!error && response.statusCode != 200) {
+	// 			res.render('errors/404');
 			
-			} else if (!error && response.statusCode === 200) {
-				res.end(body, {"content-type":"application/json"})
-			} else {
-				res.render('errors/404;');
-			} 
-		});		
+	// 		} else if (!error && response.statusCode === 200) {
+	// 			res.end(body, {"content-type":"application/json"})
+	// 		} else {
+	// 			res.render('errors/404;');
+	// 		} 
+	// 	});		
 
 	var searchUrl = "http://api.brewerydb.com/v2/search"
 		searchUrl = url.parse(searchUrl); 
@@ -147,8 +146,7 @@ app.get('/logout', function(request, response) {
 			}
 		});	
 
-
-// });
+});
 
 	app.post('/breweries', function(req, res) {
 		var breweries = new db.Brewery(req.body.brewery);
@@ -208,8 +206,7 @@ app.get('*', function(request, response) {
 
 // SERVER LISTENER
 app.listen(3000, function() {
-	"Server is listening on port 3000";
+	console.log("Server is listening on port 3000");
 });
 
-});
 

@@ -26,10 +26,9 @@ $(function() {
 // write the code for 
 
 	$('#newBreweryLink').click(function(e) {
-
 		e.preventDefault();
 
-			var html = '<br><form id="newBrewSearchForm" action="#" data-url="/search/location" method="POST'> +
+			var html = '<br><form id="newBrewSearchForm" action="#" data-url="/search/location" method="POST>' +
 						 
 						 '<div class="locate-beer"' +
 						 '<label for="locate-beer">Location:</label>' +
@@ -51,7 +50,7 @@ $(function() {
 						 '<br><input type="submit" value="Submit" class="button">' +
 						 '</form>';
 
-	$('body h4').after(html);
+	$('h4').after(html);
 
 	$('#newBrewSearchForm').submit(function(e) {
 		e.preventDefault();
@@ -71,15 +70,15 @@ $(function() {
 			data: data,
 			dataType: 'json',
 		
-			}).done(function(breweryApiResponse) {
-				var breweries = breweryApiResponse.data;
-				breweries.forEach(function(brewery) {
-					$('body').append(brewery.name);
+			}).done(function(breweryApiResponse) { // breweryApiResponse is a parameter
+				var breweries = breweryApiResponse.data; // created the variable breweries for data 
+				breweries.forEach(function(brewery) { // using a forEach function populating brewery info
+					$('body').append(brewery.name); // here within the body with the brewery.name
 				})
 
-				$('newBrewSearchForm').remove();
-				}).fail(function(error) {
-					console.log("error", error);
+				$('newBrewSearchForm').remove(); // removing the form after brewery info has populated here
+				}).fail(function(error) { // if there is a fail here
+					console.log("error", error); // console.log "error"
 				})
 			});				
 });
