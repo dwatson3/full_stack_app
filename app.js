@@ -97,22 +97,41 @@ app.post('/signup', function(request, response) {
 app.get('/logout', function(request, response) {	
 })
 
-// // MAIN INDEX for Page, this works
-// app.get('/breweries', function(request, response) {
-// 	// not sure if Mongoose should be included in here?
-// 	response.render("breweries/index");
-// })
+// Where do I pass in my data for Geocoding API over HTTP?
+// link is a generic http://maps.googleapis.com/maps/api/geocode/output?parameters
 
 
+// Why is nothing working now??
 // MAIN INDEX for Page trying out server side
-app.get('/breweries', function(req, res) {
-	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET; 
-	// var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
+// app.get('/search/breweries', function(req, res) {
+	app.get('/brewery/new', function(req, res) {
+	// var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET +
 	console.log(req.query);
+
+	var geocodeUrl = "http://maps.googleapis.com/maps/api/geocode/json?address="
+		geocodeUrl= url.parse(geocodeUrl);
+		geocodeUrl.query = {type: "location", q: req.query.brewery.location, key: process.env.GEOCODE_SECRET};
+		geocodeUrl = url.format(geocodeUrl)
+
+		request.get(geocodeUrl, function(error, response, body) {
+			if (error) {
+				res.render('errors/404');
+
+			} else if (!error && response.statusCode != 200) {
+				res.render('errors/404');
+			
+			} else if (!error && response.statusCode === 200) {
+				res.end(body, {"content-type":"application/json"})
+			} else {
+				res.render('errors/404;');
+			} 
+		});		
+
 	var searchUrl = "http://api.brewerydb.com/v2/search"
 		searchUrl = url.parse(searchUrl); 
 		searchUrl.query = {type: "brewery", q: req.query.brewery.name, key: process.env.BREWERY_SECRET};
-		searchUrl = url.format(searchUrl)	
+		searchUrl = url.format(searchUrl)
+	// send to the api
 		request.get(searchUrl, function(error, response, body) {
 			if (error) {
 				res.render('errors/404');
@@ -127,29 +146,27 @@ app.get('/breweries', function(req, res) {
 				res.render('errors/404');
 			}
 		});	
-});
 
-// NEW
-// app.get('/breweries/new', function(req, res) {
 
-// })
+// });
 
-app.post('/breweries', function(req, res) {
-	var breweries = new db.Brewery(req.body.brewery);
-		breweries.save(function(err, brewery) {
-			res.format({
-				'text/html': function() {
+	app.post('/breweries', function(req, res) {
+		var breweries = new db.Brewery(req.body.brewery);
+			breweries.save(function(err, brewery) {
+				res.format({
+					'text/html': function() {
 					res.redirect('/breweries');
 				},
-				'application/json': function() {
+					'application/json': function() {
 					res.send(brewery);
 				},
-				'default': function() {
+					'default': function() {
 					res.status(406).send('Not Acceptable');
 				}
 			});
 		});
 });
+
 
 // posting all of my search results data on the same page
 // app.post('/breweries', function(req, res) {
@@ -194,4 +211,5 @@ app.listen(3000, function() {
 	"Server is listening on port 3000";
 });
 
+});
 
