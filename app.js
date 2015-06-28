@@ -14,95 +14,246 @@ var url = require("url");
 
 var morgan = require('morgan');
 var loginMiddleware = require('./middleware/loginHelper');
-var routeMiddleware = require('./middleware/routeHelper'); // why is this called routeMiddleware?
-
-
-// I'm not sure if I should be changing the host and user info in the .env file?
+var routeMiddleware = require('./middleware/routeHelper'); 
 
 // setting and using our modules here
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(morgan('tiny'));
-app.use(express.static(__dirname + '/public')) // this is the folder holding our CSS and JavaScript files
+// express.static is the folder holding our CSS and JavaScript files
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
+// using loginMiddleware
+app.use(loginMiddleware);
 
 app.use(session({
-	maxAge: 360000, // how long until the session expires, this is for an hour
+	maxAge: 360000, // this lasts for an hour
 	secret: 'illnevertell', // Dunno what this is doing
 	name: "daphnes-chip" // Not sure why this is here
 }));
 
-// using loginMiddleware
-app.use(loginMiddleware);
-
-// The first set of routes will be for New User, Logging in, and Edit on the index
-// The search page is going to be my main page
 
 // ROOT
-app.get('/', function(request, response) {
-	response.render('layout');
-	// response.redirect('/breweries');
-	// maybe res.redirect('/brewsearch') instead?
+app.get('/', function(req, res) {
+	db.User.find(req.session.id, "username", function(err, user) {
+		if (err) throw err;
+			res.render("breweries/index");
+	});
+});
+// app.get('/', function(req, res) {
+// 	// to limit the amount of data received, specify the id and username
+// 	db.User.find(req.session.id, "username", function(err, user) {
+// 		console.log(user);
+// 		res.render('layout', {user:user});
+// 	});
+// });
+
+// INDEX page
+app.get('/breweries', function(req, res) {
+	db.Country.find({}, function(err, breweries) {
+		if (err) throw err;
+			res.render("/", {brewery:brewery});
+	});
 });
 
-// User INDEX page
-app.get('/users/index', routeMiddleware.preventLoginSignup, function(request, response) {
-	response.render('users/index');
-})
+// app.get('/users/index', routeMiddleware.preventLoginSignup, function(request, response) {
+// 	response.render('users/index');
+// })
 
 // User LOGIN page
-// check to see if this is working?
 app.get('/login', routeMiddleware.preventLoginSignup, function(request, response) {
 	response.render('users/login');
-})
+});
 
 // CREATE page for the LoggedIn User
-// check to see if this is working?
 app.post('/login', function(req, res) {
 	db.User.authenticate(req.body.user, // something is wrong here with mongod/mongoose
 		function (err, user) {
 			if (!err && user !== null) {
 				req.login(user);
-				response.redirect("/breweries");
+				// response.redirect("/breweries");
+					res.redirect('/');
 			} else {
-				console.log(err)
-				response.render('users/login', {err:err});
+				console.log(err);
+				res.render('users/show', {err:err});
 			}
 	});
 });
 
 // User SIGNUP page
-// check to see if this is working?
 app.get('/signup', routeMiddleware.preventLoginSignup, function(request, response) {
 	response.render('users/signup');
-})
+});
 
 // User SIGNUP page to post information
-app.post('/signup', function(request, response) {
-	db.User.create(request.body.user, function(err, user) { // undefined is not a function, there's something wrong with this line. DUNNO
+app.post('/signup', function(req, res) {
+	db.User.create(req.body.user, function(err, user) { // undefined is not a function, there's something wrong with this line. DUNNO
 	// I'm not able to submit the signup username/password and redirect to the index page	
 		if (user) {
-			console.log(user)
-			request.login(user)
-			response.redirect('/breweries')
+			console.log(user);
+			req.login(user);
+			// res.redirect('/breweries')
+			res.redirect('/'); // putting the root route here because it goes straight to layout
 		} else {
-			console.log(err)
-			response.render('errors/404');
+			console.log(err);
+			res.render('errors/404');
 		}
-	})
-})
+	});
+});
 
 // LOGOUT route info page
-app.get('/logout', function(request, response) {	
-})
+app.get('/logout', function(req, res) {	
+	req.logout();
+	res.redirect("/");
+});
 
 // Where do I pass in my data for Geocoding API over HTTP?
 // link is a generic http://maps.googleapis.com/maps/api/geocode/output?parameters
 
-
-// Why is nothing working now??
 // MAIN INDEX for Page trying out server side
-app.get('/search/breweries', function(req, res) {
+// The app.get API calls need to go to two different routes
+app.get('/breweries', function(req, res) {
+
+	var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
+		console.log(url);
+			if(req.query.brewery) {
+				request.get(url, function(error, response, body) {
+					if (error) {
+						console.log(error);
+					} 
+					else {
+						var brewData = JSON.parse(body);
+						res.render('breweries/show');
+					}
+				});
+			}
+});
+
+			// 	if (error) {
+			// 		res.render('errors/404');
+			// 	} else if (!error && response.statusCode === 200) {
+			// 		res.send(body {"content-type":"application/json"});
+			// 	} else {
+			// 		res.render('errors/404');
+			// 	}
+		
+// NOT SURE WHY THIS ISN'T WORKING
+	// var urlGoogle = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=");
+	// 	request.get(urlGoogle, function(error, response, body) {
+	// 			var googleMapData = JSON.parse(body);
+	// 				if (error) {
+	// 					res.render('errors/404');
+	// 				} else if (!error && response.statusCode === 200) {
+	// 					res.send(body);
+	// 				}	else {
+	// 					res.render('errors/404');
+	// 				}		
+	// 	});			
+		// });
+
+		// breweries.location 	= googleMapData.results[0].formatted_address;
+// 		console.log(googleMapData.results[0].geometry.location.lat);
+
+// 		//var lat = googleMapData.results[0].geometry.location.lat;
+// 		//var long = googleMapData.results[0].geometry.location.lng;
+
+
+// 	// Saving the breweries object to mongo
+			
+// // passing in the lat and long variables to the breweryDB API
+// // so that you'll end up saving are the breweries information
+// // use a get request to the API
+// // look on the docs to see what q is, for ajax url parsing
+
+// 	// NOT SURE WHY THIS ISN'T WORKING
+// 	var searchUrl = "http://api.brewerydb.com/v2/search/geo/point";
+	// 		// searchUrl.query = {type: "brewery", q: lat + long , key: process.env.BREWERY_SECRET};
+	// 	searchUrl.query = {type: "brewery", q: lat + long};
+	// 	searchUrl = url.format(searchUrl);
+	// 		request.get(searchUrl, function(error, response, body) {
+	// 			var breweryMap = JSON.parse(body);
+	// 			if (error) {
+	// 				res.render('errors/404');			
+	// 			} else if (!error && response.statusCode != 200) {
+	// 				res.end(body);
+	// 			} else {
+	// 				res.render('errors/404');
+	// 			}
+		// });	
+
+	// breweries.save(function(err, breweries) {
+	// 	if (err) throw err;
+	// 		res.format({
+	// 			'text/html': function() {
+	// 				res.redirect('/breweries');
+	// 			},
+	// 			'application/json': function() {
+	// 				console.log(breweries);
+	// 				res.send(breweries);
+	// 					//res.send(breweries);
+	// 			},
+	// 			'default': function() {
+	// 				res.status(406).send('Not Acceptable');
+	// 			}
+	// 		});
+	// 	}); 	
+
+
+	// app.post('/breweries', function(req, res) {
+	// 	});	
+
+// CATCH ALL
+app.get('*', function(req, res) {
+	res.render('errors/404');
+});
+
+// SERVER LISTENER
+app.listen(3000, function() {
+	console.log("Server is listening on port 3000");
+});
+
+
+	// var searchUrl = "http://api.brewerydb.com/v2/search/"
+	// 	searchUrl = url.parse(searchUrl); 
+	// 	searchUrl.query = {type: "brewery", q: req.query.brewery.name, key: process.env.BREWERY_SECRET};
+	// 	searchUrl = url.format(searchUrl)
+
+	// send to the api
+	// THIS IS A DUPLICATE
+		// request.get(searchUrl, function(error, response, body) {
+		// 	if (error) {
+		// 		res.render('errors/404');
+
+		// 	} else if (!error && response.statusCode != 200) {
+		// 		res.render('errors/404');
+
+		// 	} else if (!error && response.statusCode === 200) {
+		// 		res.end(body, {"content-type":"application/json"});
+
+		// 	} else {
+		// 		res.render('errors/404');
+		// 	}
+		// });	
+
+		// 	breweries.save(function(err, breweries) {
+		// 		if (err) throw err;
+		// 		res.format({
+		// 			'text/html': function() {
+		// 				res.render('/');
+		// 			},
+		// 			'application/json': function() {
+		// 				console.log(breweries);
+		// 				res.send(breweries);
+		// 				//res.send(breweries);
+		// 			},
+		// 			'default': function() {
+		// 				res.status(406).send('Not Acceptable');
+		// 			}
+		// 		});
+		// 	}) 
+
+// });
+
 	// app.get('/brewery/new', function(req, res) {
 	// var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET +
 	// console.log(req.query);
@@ -120,50 +271,84 @@ app.get('/search/breweries', function(req, res) {
 	// 			res.render('errors/404');
 			
 	// 		} else if (!error && response.statusCode === 200) {
-	// 			res.end(body, {"content-type":"application/json"})
+	// 			res.end(body)
 	// 		} else {
-	// 			res.render('errors/404;');
+	// 			res.render('errors/404');
 	// 		} 
-	// 	});		
+	// 	});	
 
-	var searchUrl = "http://api.brewerydb.com/v2/search"
-		searchUrl = url.parse(searchUrl); 
-		searchUrl.query = {type: "brewery", q: req.query.brewery.name, key: process.env.BREWERY_SECRET};
-		searchUrl = url.format(searchUrl)
-	// send to the api
-		request.get(searchUrl, function(error, response, body) {
-			if (error) {
-				res.render('errors/404');
 
-			} else if (!error && response.statusCode != 200) {
-				res.render('errors/404');
+		// Making an object out of breweries
+		//var breweries = new db.Brewery(req.body.brewery);
+		//var searchLocation = encodeURIComponent(breweries.location);
+		// requesting location data from google geolocation api 
+		// and replacing search address, lat & lng with google data
+		// var searchLocation = "1075 E 20th St Chico, CA 95928";
+		// request.get('https://maps.googleapis.com/maps/api/geocode/json?key='  + process.env.GEOCODE_SECRET + '&address=' + , function(err, response, body) {
+			// var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?key='  + process.env.GEOCODE_SECRET + '1075 E 20th Street Chico CA 95928'")
+		// 	var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=")
+		// 	request.get(url,
+		// 		function(error, response, body) {
+		// 			console.log(body)
+		// 		})
+		// 	var googleMapData = JSON.parse(body);
+		// 	breweries.location 	= googleMapData.results[0].formatted_address;
+		// 	var lat = googleMapData.results[0].geometry.location.lat;
+		// 	var long = googleMapData.results[0].geometry.location.lng;
+		// // Saving the breweries object to mongo
+			
+		// 	// pass in the lat and long to the breweryDB
+		// 	// so what you'll end up saving are the breweries information
+		// 	// make a get request to the API
+		// 	// look on the docs to see what q is, ajax url parsing
+		// 	var searchUrl = "http://api.brewerydb.com/v2/search/geo/point"
+		// 	searchUrl = url.parse(searchUrl); 
+		// 	// searchUrl.query = {type: "brewery", q: lat + long , key: process.env.BREWERY_SECRET};
+		// 	searchUrl.query = {type: "brewery", q: lat + long};
+		// 	searchUrl = url.format(searchUrl)
+		
+		// request.get(searchUrl, function(error, response, body) {
+		// 	if (error) {
+		// 		res.render('errors/404');			
+		// 	} else if (!error && response.statusCode != 200) {
+		// 		res.end(body)
+		// 	} else {
+		// 		res.render('errors/404');
+		// 	}
 
-			} else if (!error && response.statusCode === 200) {
-				res.end(body, {"content-type":"application/json"});
+		// 	breweries.save(function(err, breweries) {
+		// 		if (err) throw err;
+		// 		res.format({
+		// 			'text/html': function() {
+		// 				res.redirect('/breweries');
+		// 			},
+		// 			'application/json': function() {
+		// 				console.log(breweries);
+		// 				res.send(breweries);
+		// 				//res.send(breweries);
+		// 			},
+		// 			'default': function() {
+		// 				res.status(406).send('Not Acceptable');
+		// 			}
+		// 		});
+		// 	}) 	
+		// });	
 
-			} else {
-				res.render('errors/404');
-			}
-		});	
 
-});
-
-	app.post('/breweries', function(req, res) {
-		var breweries = new db.Brewery(req.body.brewery);
-			breweries.save(function(err, brewery) {
-				res.format({
-					'text/html': function() {
-					res.redirect('/breweries');
-				},
-					'application/json': function() {
-					res.send(brewery);
-				},
-					'default': function() {
-					res.status(406).send('Not Acceptable');
-				}
-			});
-		});
-});
+			// breweries.save(function(err, brewery) {
+			// 	res.format({
+			// 		'text/html': function() {
+			// 		res.redirect('/breweries');
+			// 	},
+			// 		'application/json': function() {
+			// 		res.send(brewery);
+			// 	},
+			// 		'default': function() {
+			// 		res.status(406).send('Not Acceptable');
+			// 	}
+			// });
+		// });
+// });
 
 
 // posting all of my search results data on the same page
@@ -198,15 +383,4 @@ app.get('/search/breweries', function(req, res) {
 // 		}
 // 	});
 // });
-
-// CATCH ALL
-app.get('*', function(request, response) {
-	response.render('errors/404');
-});
-
-// SERVER LISTENER
-app.listen(3000, function() {
-	console.log("Server is listening on port 3000");
-});
-
 

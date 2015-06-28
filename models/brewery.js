@@ -12,6 +12,8 @@ var brewerySchema = new mongoose.Schema({ // creating a new Schema
 // so that it will be easier to remember/retrieve in the database
 	breweryDB_id: String,
 	location: String,
+	lat: { type: Number, required: true, min: -90.0, max: 90.0},
+	long: { type: Number, required: true, min: -180.0, max: 180.0},
 	name: String,
 	beerType: String
 });

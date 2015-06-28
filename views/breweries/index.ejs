@@ -2,13 +2,13 @@
 
 <% include ../partials/header %>
 
-<h2>This is my main search page for Brewery Finder</h2>
+<h2>Brew It Search</h2>
 
-<h4>Logo and/or Map should be here, and map should appear on the SHOW page</h4>
+<h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4>
 
 <form action="/breweries/index" method="GET">
 
-<div class="search-fields">
+<div class="location-search">
 	<div class="locate-beer">
 		<label for="locate">Location:</label>
 			<input type="text" class="searchin" id="locate" name="locate"style="width: 250px">
@@ -30,6 +30,8 @@
 	</div>
 
 	</form>
+
+<!-- 	<a href="brewery/index" id="newBreweryLink">Brewery Search</a> -->
 
 	<div class="page-links">
 		<a href="/login">Login</a>
