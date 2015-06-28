@@ -4,34 +4,7 @@
 
 <h2>Brew It Search</h2>
 
-<h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4>
-
-<form action="/breweries/index" method="GET">
-
-<div class="location-search">
-	<div class="locate-beer">
-		<label for="locate">Location:</label>
-			<input type="text" class="searchin" id="locate" name="locate"style="width: 250px">
-			<!-- placeholder="Enter a City & State, Address, or Zip Code" -->
-			<button type="submit" class="locate">Find Breweries</button>
-	</div>
-
-	<div class="brewery-name">
-		<label for="breweryName">Find Brewery By Name:</label>
-			<input type="text" class="searchin" id="breweryName" name="breweryName" style="width: 140px" placeholder="Enter a Brewery Name">
-			<button type="submit" class="brew">Find Breweries</button>
-	</div>
-<!-- </div> -->
-
-	<div class="search-beer">
-		<label for="beerCurious">Curious about a beer?</label>
-			<input type="text" class="searchin" id="beerCurious" name="beerCurious" placeholder="Enter a Beer Here">
-			<button type="submit" class="learn-more">Find A Beer</button>
-	</div>
-
-	</form>
-
-<!-- 	<a href="brewery/index" id="newBreweryLink">Brewery Search</a> -->
+<!-- <h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4> -->
 
 	<div class="page-links">
 		<a href="/login">Login</a>
@@ -39,7 +12,36 @@
 		<a href="/signup" class="new-user">New user? Signup here</a>
 	</div>
 
-	<ul class="form">
+<form action="/breweries/index/?_method=put" method="POST">
+	<div class="location-search">
+		<label for="locate">Location:</label>
+			<input type="text">
+				<!-- <input type="text" class="searchin" id="locate" name="locate"style="width: 250px"> -->
+			<!-- placeholder="Enter a City & State, Address, or Zip Code" -->
+			<input type="submit" value="Find Breweries" class="locate">
+			</input>
+	</div>
+
+		<iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403760.5698387298!2d-122.4376!3d37.75770000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1435523992101" width="800" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+	<!--
+		<div class="brewery-name">
+			<label for="breweryName">Find Brewery By Name:</label>
+				<input type="text" class="searchin" id="breweryName" name="breweryName" style="width: 140px" placeholder="Enter a Brewery Name">
+				<button type="submit" class="brew">Find Breweries</button>
+		</div>
+    </div> -->
+
+		<!-- <div class="search-beer">
+			<label for="beerCurious">Curious about a beer?</label>
+				<input type="text" class="searchin" id="beerCurious" name="beerCurious" placeholder="Enter a Beer Here">
+				<button type="submit" class="learn-more">Find A Beer</button>
+		</div>  -->
+
+<!-- 	<a href="brewery/index" id="newBreweryLink">Brewery Search</a> -->
+
+
+<!-- 	<ul class="form">
 		<div class="form-group">
 			<li>Location:</li>
 		</div>
@@ -51,10 +53,10 @@
 		<div class="form-group">
 			<li>Beer:</li>
 		</div>
+ -->
 
-
-	<div class="display-results"></div>
-</div>	
+<!-- 	<div class="display-results"></div>
+</div>	 -->
 
 <!-- Begin Beer Mapping Blog/Site Map - http://beermapping.com -->
 <!-- <div class="beer-map">

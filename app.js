@@ -112,21 +112,24 @@ app.get('/logout', function(req, res) {
 
 // MAIN INDEX for Page trying out server side
 // The app.get API calls need to go to two different routes
-app.get('/breweries', function(req, res) {
+// app.get('/breweries/index', function(req, res) {
 
-	var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
-		console.log(url);
-			if(req.query.brewery) {
-				request.get(url, function(error, response, body) {
-					if (error) {
-						console.log(error);
-					} 
-					else {
-						var brewData = JSON.parse(body);
-						res.render('breweries/show');
-					}
-				});
-			}
+// 	var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
+// 		console.log(url);
+// 			if(req.query.brewery) {
+// 				request.get(url, function(error, response, body) {
+// 					if (error) {
+// 						console.log(error);
+// 					} 
+// 					else {
+// 						var brewData = JSON.parse(body);
+// 						res.render('breweries/index');
+// 					}
+// 				});
+// 			}
+// });
+app.get('/breweries/index', function(req, res) {
+	res.render("breweries/index");
 });
 
 			// 	if (error) {

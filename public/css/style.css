@@ -12,6 +12,19 @@
 	float: left;
 }*/
 
+.page-links {
+	float: right;
+}
+
+.google-map {
+	padding: 20px 0 0 0;
+}
+
+.location-search {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
 h2, h4 {
 	text-align: center;
 }
