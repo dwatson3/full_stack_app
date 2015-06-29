@@ -155,8 +155,16 @@ app.post('/breweries', function(req, res) {
 	});
 });
 
+// SHOW
+app.get('/breweries/:id', function(req, res) {
+	db.Brewery.findById(req.params.id, function(err, brewery) {
+		if (err) throw err;
+			res.render("breweries/show", {brewery:brewery});
+	});
+});
+
 // UPDATE
-app.put('/breweries/:id', function(req, res) {
+app.put('/breweries/index', function(req, res) {
 	db.Brewery.findById(req.params.id, function(err, brewery) {
 		// brewery.save(function(err, brewery) {
 			if (err) throw err;

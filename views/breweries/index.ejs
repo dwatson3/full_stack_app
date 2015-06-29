@@ -12,9 +12,9 @@
 		<a href="/signup" class="new-user">New user? Signup here</a>
 	</div>
 
-<form action="/breweries/index/?_method=put" method="POST">
+<form action="/breweries/<%= breweryDB_id %>?_method=put" method="POST">
 	<div class="location-search">
-		<label for="locate">Location:</label>
+		<label for="locate" id="locate">Location:</label>
 			<input type="text">
 				<!-- <input type="text" class="searchin" id="locate" name="locate"style="width: 250px"> -->
 			<!-- placeholder="Enter a City & State, Address, or Zip Code" -->

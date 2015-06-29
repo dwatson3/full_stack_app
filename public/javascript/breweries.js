@@ -105,7 +105,7 @@ loadBreweries();
 			});
 		});
 			// removing the form after brewery info has populated here 
-	});
+	// });
 });
 
 
