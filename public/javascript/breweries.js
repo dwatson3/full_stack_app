@@ -63,20 +63,21 @@ loadBreweries();
 			var data = {brewery: {location: locate}};
 		console.log(data);
 		breweryHtml();
+	});	
 
-		$('.brewery-name').submit(function(e) {
-		e.preventDefault();
-		console.log(this);
-			var breweryName = $('#breweryName').val();
-			var data = {brewery: {name:breweryName}};
-		});
+		// $('.brewery-name').submit(function(e) {
+		// e.preventDefault();
+		// console.log(this);
+		// 	var breweryName = $('#breweryName').val();
+		// 	var data = {brewery: {name:breweryName}};
+		// });
 
-		$('.search-beer').submit(function(e) {
-		e.preventDefault();
-		console.log(this);
-			var beerCurious = $('#beerCurious').val();
-			var data = {brewery: {beerType:beerCurious}};	
-		});
+		// $('.search-beer').submit(function(e) {
+		// e.preventDefault();
+		// console.log(this);
+		// 	var beerCurious = $('#beerCurious').val();
+		// 	var data = {brewery: {beerType:beerCurious}};	
+		// });
 
 
 		$.ajax({

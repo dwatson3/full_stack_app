@@ -128,8 +128,41 @@ app.get('/logout', function(req, res) {
 // 				});
 // 			}
 // });
+
+// INDEX
+// placing my API call here
 app.get('/breweries/index', function(req, res) {
-	res.render("breweries/index");
+	var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
+		console.log(url);
+			if(req.query.brewery) {
+				request.get(url, function(error, response, body) {
+					if (error) {
+						console.log(error);
+					} else {
+						var brewData = JSON.parse(body);
+						res.render('breweries/index');
+					}
+				});
+			}	
+});
+
+// CREATE
+app.post('/breweries', function(req, res) {
+	var brewery = new db.Brewery(req.body.brewery);
+	brewery.save(function (err) {
+		if (err) throw err;
+			res.redirect('/');
+	});
+});
+
+// UPDATE
+app.put('/breweries/:id', function(req, res) {
+	db.Brewery.findById(req.params.id, function(err, brewery) {
+		// brewery.save(function(err, brewery) {
+			if (err) throw err;
+			res.redirect('/');
+		});
+	// });
 });
 
 			// 	if (error) {
