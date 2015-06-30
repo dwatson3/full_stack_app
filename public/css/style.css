@@ -12,6 +12,17 @@
 	float: left;
 }*/
 
+.heading {
+	background-color: #B40404;
+}
+
+.return {
+	color: red;
+	float: left;
+	left: 10px;
+	position: relative;
+}
+
 .brewery-image {
 	padding-bottom: 20px;
 }
@@ -55,10 +66,12 @@
 }
 
 h2, h4 {
+	color: white;
 	text-align: center;
 }
 
 h3 {
+	color: white;
 	padding-bottom: 20px;
 	text-align: center;
 }
