@@ -23,12 +23,15 @@
 	width: 1400px;
 }
 
-.links-color {
+.links-color-background {
 	background-color: #F7F8E0;
-	position: relative;
 	border-radius: 20px;
 	height: 140px;
 	width: 300px;
+	
+	left: 80px;
+	position: relative;
+
 }
 
 .links {
@@ -41,6 +44,10 @@
 	font-size: 24px;
 }
 
+.home {
+	font-family: 'Lobster', cursive;
+}
+
 .links {
 	font-size: 16px;
 }
@@ -48,7 +55,7 @@
 .heading {
 	background-color: #F7F8E0;
 	border-radius: 20px;
-	height: 50px;
+/*	height: 50px;*/
 	width: 400px;
 }
 
@@ -112,7 +119,7 @@
 
 .resultsGoHere {
 /*	background-color: #F7F8E0;*/
-	padding: 50px 0 30px 0;
+	padding: 20px 0 30px 0;
 	margin-top: 50px;
 
 	text-align: center;
