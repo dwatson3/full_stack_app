@@ -12,26 +12,77 @@
 	float: left;
 }*/
 
-.heading {
+#body-color {
 	background-color: #B40404;
+	border-radius: 20px;
+	margin: 0 auto;
+	position: relative;
+	width: 1400px;
 }
 
-.return {
+.links-color {
+	background-color: #F7F8E0;
+	position: relative;
+	border-radius: 20px;
+	width: 200px;
+}
+
+.heading {
+/*	background-color: #B40404;*/
+}
+
+/*.return {
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
 	color: red;
 	float: left;
-	left: 10px;
+  left: 10px;
 	position: relative;
+	width: 200px;
+}*/
+
+.red {
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+	color: red;
+	object-fit: cover;
+	position: relative;
+	width: 1200px;
+}
+
+.links {
+	/*background-color: #F7F8E0;*/
+	padding-top: 20px;
+	position: relative;
+/*	width: 200px;*/
 }
 
 .brewery-image {
-	padding: 20px 0 20px 0;
+/*	border-radius: 20px;*/
+	padding: 15px 0 20px 0;
 }
 
 .info {
+	font-size: 20px;
 	padding-bottom: 30px;
+
+}
+
+.color-background {
+	background-color: #F7F8E0;
+	border-radius: 20px;
+	margin: 0 auto;
+	position: relative;
+	text-align: center;
+	width: 1250px;
+
+	-moz-border-radius: 20px;
 }
 
 .resultsGoHere {
+/*	background-color: #F7F8E0;*/
 	padding: 50px 0 30px 0;
 	margin-top: 50px;
 
@@ -64,17 +115,17 @@
 	text-align: center;
 	padding-bottom: 20px;
 }
-
+/*
 h2, h4 {
 	color: white;
 	text-align: center;
-}
+}*/
 
-h3 {
+/*h3 {
 	color: white;
 	padding-bottom: 20px;
 	text-align: center;
-}
+}*/
 
 h4 {
 	margin-top: 30px;

@@ -2,37 +2,48 @@
 <% include partials/header %>
 
 <script type="text/javascript" src="/javascript/search.js"></script>
-	<h3 class="return">Return Home</h3>
+
+<div id="body-color">
+	<div class="links-color">
+		<div class="links">
+			<a href="/" class="home">Return Home</a> <br>
+			<a href="/login" class="login"> Login </a> <br>
+			<a href="/logout" class="logout"> Logout </a>
+		</div>
+	</div>
+
 	<div class="heading">
 		<h2>Find A Local Brewery</h2>
 		<h3>Location Results:</h3>
 	</div>
 	<!-- <div id="map-canvas"></div> -->
 	
-	<div class="resultsGoHere">
-		<% brewData.data.forEach(function (brew) { %>
-			<p> 
-				<div class="brewery-image">
-					<% if (brew.brewery && brew.brewery.images) { %>
-						<img src="<%= brew.brewery.images.medium %>" alt=""></img> <br>
-				</div>
+	<div class="color-background">
+		<div class="resultsGoHere">
+			<% brewData.data.forEach(function (brew) { %>
+				<p> 
+					<div class="brewery-image">
+						<% if (brew.brewery && brew.brewery.images) { %>
+							<img src="<%= brew.brewery.images.medium %>" alt=""></img> <br>
+					</div>
 
-				<div class="info">
-					<%= brew.name %> <br> 
-					<%= brew.streetAddress %> <br> 
-					<%= brew.locality %> <br>
-					<%= brew.region %> <br>
-					<%= brew.hoursOfOperation %> <br>
-					<% if (brew.website) { %>
-					<a href="<%= brew.website %>">Visit Website</a> <br>
-					<%= brew.phone %> <br>
-				</div>
-			</p>
+					<div class="info">
+						<%= brew.name %> <br> 
+						<%= brew.streetAddress %> <br> 
+						<%= brew.locality %> <br>
+						<%= brew.region %> <br>
+						<% if (brew.website) { %>
+						<a href="<%= brew.website %>">Visit Website</a> <br>
+						<%= brew.phone %> <br>
+						<%= brew.hoursOfOperation %> <br>
+					</div>
+				</p>
 
-		<% } %>
-		<% }; %>
-		<% }); %>
-
+			<% } %>
+			<% }; %>
+			<% }); %>
+		</div>
 	</div>
+</div>
 
 <% include partials/footer %>

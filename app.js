@@ -161,8 +161,8 @@ app.get('/logout', function(req, res) {
 app.get('/search', function(req, res) {
 	var breweryinfoDB = encodeURIComponent(req.query.location);
 	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
-	// using the generic search link instead
 	// var url = 'https://api.brewerydb.com/v2/locations?q=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
+	// using this query string to search by locality
 	var url = 'https://api.brewerydb.com/v2/locations?p=1&withLocations=Y&locality=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
 		console.log(url);
 			if(req.query.location) {
@@ -173,7 +173,7 @@ app.get('/search', function(req, res) {
 						var brewData = JSON.parse(body);
 						// console.log(brewData);
 						console.log("about to render search");
-						res.render('search', {brewData:brewData}); // the second one is the instance of the ...something?
+						res.render('search', {brewData:brewData}); // the second one is the instance of the ...something? Not sure
 				}
 			});	
 		}		
