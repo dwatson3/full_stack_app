@@ -11,16 +11,24 @@
 	<div class="resultsGoHere">
 		<% brewData.data.forEach(function (brew) { %>
 			<p> 
+				<div class="brewery-image">
 					<% if (brew.brewery && brew.brewery.images) { %>
-					<img src="<%= brew.brewery.images.medium %>" alt=""></img> <br>
+						<img src="<%= brew.brewery.images.medium %>" alt=""></img> <br>
+				</div>
+
+				<div class="info">
 					<%= brew.name %> <br> 
 					<%= brew.streetAddress %> <br> 
 					<%= brew.locality %> <br>
+					<%= brew.region %> <br>
 					<%= brew.hoursOfOperation %> <br>
-					<%= brew.website %> <br>
+					<% if (brew.website) { %>
+					<a href="<%= brew.website %>">Visit Website</a> <br>
 					<%= brew.phone %> <br>
+				</div>
 			</p>
 
+		<% } %>
 		<% }; %>
 		<% }); %>
 
