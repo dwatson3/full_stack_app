@@ -29,9 +29,9 @@ $(function() {
 		
 		}).done(function(data) {
 				console.log(data);
-				data.data.forEach(function(brew) { // not sure if this should be data.data.forEach instead
-					$('.resultsGoHere').append("<li>" + brew.name + "</li>" + "<li>" + brew.website + "</li>" + "<li>" + brew.images[1] + "</li>");
-				});
+				// data.data.forEach(function(brew) { // not sure if this should be data.data.forEach instead
+				// 	$('.resultsGoHere').append("<li>" + brew.name + "</li>" + "<li>" + brew.website + "</li>" + "<li>" + brew.images[1] + "</li>");
+				// });
 		});
 	});
 });

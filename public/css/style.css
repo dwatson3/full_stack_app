@@ -24,11 +24,11 @@
 }
 
 .brewery-image {
-	padding-bottom: 20px;
+	padding: 20px 0 20px 0;
 }
 
 .info {
-	padding-bottom: 40px;
+	padding-bottom: 30px;
 }
 
 .resultsGoHere {
@@ -37,12 +37,12 @@
 
 	text-align: center;
 	-webkit-column-count: 3;
-	-webkit-column-gap: 40px;
+	-webkit-column-gap: 60px;
 
 	-moz-column-count: 3;
-	-moz-column-gap: 40px;
+	-moz-column-gap: 60px;
 
-	column-gap: 40px;
+	column-gap: 60px;
 	column-count: 3;
 }
 

@@ -162,7 +162,8 @@ app.get('/search', function(req, res) {
 	var breweryinfoDB = encodeURIComponent(req.query.location);
 	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
 	// using the generic search link instead
-	var url = 'https://api.brewerydb.com/v2/locations?q=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
+	// var url = 'https://api.brewerydb.com/v2/locations?q=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
+	var url = 'https://api.brewerydb.com/v2/locations?p=1&withLocations=Y&locality=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
 		console.log(url);
 			if(req.query.location) {
 				request.get(url, function(error, response, body) {
@@ -175,7 +176,7 @@ app.get('/search', function(req, res) {
 						res.render('search', {brewData:brewData}); // the second one is the instance of the ...something?
 				}
 			});	
-		};		
+		}		
 });
 
 
@@ -195,6 +196,8 @@ app.get('/breweries/:id', function(req, res) {
 			res.render("breweries/show", {brewery:brewery});
 	});
 });
+
+
 
 // UPDATE
 app.put('/breweries/index', function(req, res) {
