@@ -2,7 +2,11 @@
 
 <% include ../partials/header %>
 
-<h3>Sign up for Brew It</h3>
+<div id="whole-thing">
+
+<div class="style-signup">
+	<div class="form-info">
+<span class="brew-signup-page">Sign up for Brew It</span>
 
 	<form action="/signup" method="POST">
 
@@ -16,10 +20,15 @@
 			<input type="password" name="user[password]" id="password" placeholder="Enter password" autofocus>
 		</div>
 
-		<input type="submit" value="Sign up">
-		<a href="/login">Already Have An Account? Login in here</a>
+		<input type="submit" value="Sign up" id="signup"> <br>
+		<div class="inquiry">
+ 		<a href="/login">Already Have An Account? Login in here</a> <br>
+		<a href="/">Return Home</a>
 	</form>
+		</div>
 
-<a href="/">Return Home</a>
-	
+</div>
+</div>
+</div>	
+
 <% include ../partials/footer %>

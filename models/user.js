@@ -39,7 +39,7 @@ var userSchema = new mongoose.Schema({
 			if (err) {
 				return next(err);
 			} 
-			user.password = hash
+			user.password = hash;
 				return next();
 		});
 	});
@@ -51,7 +51,7 @@ userSchema.statics.authenticate = function (formData, callback) {
 		username: formData.username
 	},
 	function (err, user) {
-		console.log(user)
+		console.log(user);
 		if (user === null) {
 			callback("Invalid email or password", null);
 		}

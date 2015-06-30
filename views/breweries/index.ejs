@@ -1,26 +1,43 @@
 <!-- This is my breweries INDEX page -->
 
 <% include ../partials/header %>
-
-<h2>Brew It Search</h2>
-
-<!-- <h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4> -->
+<!-- 
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+ -->
+	
+<div id ="style-index-body">
+	<div class ="style-index">
 
 	<div class="page-links">
-		<a href="/login">Login</a>
-		<br>
-		<a href="/signup" class="new-user">New user? Signup here</a>
-	</div>
+			<a href="/login"> Login </a> <br>
+				<a href="/logout"> Logout </a> <br>
 
-<form action="/search" method="GET">
-	<div class="location-search">
-		<label for="inputLocate" id="locate">Location:</label>
-			<input id="inputLocate" type="text" name="location" val="">
+				<a href="users/signup" class="new-user">New user? Signup here</a>
+	</div>
+		
+			<span class="brew-it-search">Brew It Search</span>
+				<div class="welcome-back">
+					<div>Welcome Back <%= user[0].username %>!</div>
+				</div>
+	
+<!-- <h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4> -->
+
+		<div class="header-style">
+
+			<form action="/search" method="GET">
+				<div class="location-search">
+					<label for="inputLocate" id="locate">Locate By City:</label>
+						<input id="inputLocate" type="text" name="location" val="">
 				<!-- <input type="text" class="searchin" id="locate" name="locate"style="width: 250px"> -->
 			<!-- placeholder="Enter a City & State, Address, or Zip Code" -->
-			<input type="submit" value="Find Breweries" class="locate">
-			</input>
-	</div>
+						<input type="submit" value="Find Breweries" class="locate btn-default">
+						</input>
+				</div>
+			</form>
+
+		</div>
+	</div>	
+</div>
 
 		<!-- <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403760.5698387298!2d-122.4376!3d37.75770000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1435523992101" width="800" height="800" frameborder="0" style="border:0" allowfullscreen></iframe> -->
 

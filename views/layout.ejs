@@ -3,15 +3,22 @@
 
 <h2>Craft Brewery Finder</h2>
 
-	<div>Welcome Back <%= user[0].username %>!</div>
-	<div class="page-links">
+	<% if (user[0].username { %>
+		<div> Welcome Back, <%= user[0].username %>!</div>
+	<% } %>	
+	<% else %> <% { %>
+		<div></div>
+	<% }; %>
+
+
+	<!-- <div class="page-links">
 		<div class="red"></div>
 			<a href="/login"> Login </a>
 			<br>
 			<a href="/logout"> Logout </a>
 			<br>
 			<a href="/signup" class="new-user">New user? Signup here</a>
-	</div>
+	</div> -->
 
 <!-- <a href="brewery/new" id="newBreweryLink">Brewery Search</a> -->
 

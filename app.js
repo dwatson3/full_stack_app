@@ -37,7 +37,7 @@ app.use(session({
 app.get('/', function(req, res) {
 	db.User.find(req.session.id, "username", function(err, user) {
 		if (err) throw err;
-			res.render("breweries/index");
+			res.render("breweries/index", {user:user});
 	});
 });
 // app.get('/', function(req, res) {
@@ -80,7 +80,8 @@ app.post('/login', function(req, res) {
 					res.redirect('/');
 			} else {
 				console.log(err);
-				res.render('users/show', {err:err});
+				// res.render('users/show', {err:err});
+				res.render('breweries/index');
 			}
 	});
 });
@@ -98,7 +99,7 @@ app.post('/signup', function(req, res) {
 			console.log(user);
 			req.login(user);
 			// res.redirect('/breweries')
-			res.redirect('/'); // putting the root route here because it goes straight to layout
+			res.redirect('search'); // putting the root route here because it goes straight to layout
 		} else {
 			console.log(err);
 			res.render('errors/404');

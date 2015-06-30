@@ -134,11 +134,12 @@
 }
 
  #map-canvas {
-       width: 800px;
-       height: 600px;
-       background-color: #CCC;
-       float:left;
-     }
+    width: 800px;
+    height: 600px;
+    background-color: #CCC;
+    float:left;
+}
+
 .page-links {
 	float: right;
 }
