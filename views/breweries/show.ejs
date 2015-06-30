@@ -1,11 +1,16 @@
 <!-- This is my BREWERIES Show Page -->
 <% include ../partials/header %>
-	<h2>See more about <%= brewery.name %> </h2>
+
+<script type="text/javascript" src="/javascript/search.js"></script>
+	<h2>See more about</h2>
 
 	<h3>
-		Location: <%= brewery.location %>		
+		Location:		
 	</h3>
 
+	<!-- <div id="map-canvas"></div> -->
+	
+	<div class="resultsGoHere"></div>
 	<h3></h3>
 
 <% include ../partials/footer %>

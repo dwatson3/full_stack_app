@@ -118,17 +118,17 @@ loadBreweries();
 		// 	var data = {brewery: {location: locate}};
 		// 	console.log(data);
 		// var breweryName = $('#breweryName').val();
-		// var beerCurious = $('#beerCurious').val();
+		// var beerCurious = $('#beerCurious').val();;
 		// })
 
-		// $.ajax({
-		// 		method: "GET",
-		// 		url: '/search/breweries',
-		// 		data: data,
-		// 		dataType: 'json'
-		// }).done(function( data, textStatus, jqXHR ) {
-		// 		console.log(data);
-		// })
+		$.ajax({
+				method: "GET",
+				url: '/search/breweries',
+				data: data,
+				dataType: 'json'
+		}).done(function( data, textStatus, jqXHR ) {
+				console.log(data);
+		});
 
 		// $.ajax({
 		// 		method: "GET",

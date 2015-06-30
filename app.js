@@ -50,11 +50,16 @@ app.get('/', function(req, res) {
 
 // INDEX page
 app.get('/breweries', function(req, res) {
-	db.Country.find({}, function(err, breweries) {
+	db.Brewery.find({}, function(err, breweries) {
 		if (err) throw err;
 			res.render("/", {brewery:brewery});
 	});
 });
+
+// app.get('/search', function(req, res) {
+// 	res.render("breweries/show");
+// });
+
 
 // app.get('/users/index', routeMiddleware.preventLoginSignup, function(request, response) {
 // 	response.render('users/index');
@@ -81,8 +86,8 @@ app.post('/login', function(req, res) {
 });
 
 // User SIGNUP page
-app.get('/signup', routeMiddleware.preventLoginSignup, function(request, response) {
-	response.render('users/signup');
+app.get('/signup', routeMiddleware.preventLoginSignup, function(req, res) {
+	res.render('users/signup');
 });
 
 // User SIGNUP page to post information
@@ -129,22 +134,50 @@ app.get('/logout', function(req, res) {
 // 			}
 // });
 
+// posting all of my search results data on the same page
+// app.post('/breweries', function(req, res) {
+// 	var url = "http://api.brewerydb.com/v2/locations?key=" + process.env.BREWERY_SECRET + 
+// 		request.get(url,
+// 			function(error, response, body) {
+// 				if(error) {
+// 					console.log(error)
+// 				} 
+// 				else {
+// 					var breweryData = JSON.parse(body). // find the data in location to populate here
+// 					res.render("breweries", {breweries:breweries});
+// 					console.log(breweryData)
+// 				} 
+// 				// else {
+// 				// 	res.render("breweries", {breweries:breweries});
+// 				// }
+// 			})
+// 		res.render("breweries", {breweries: "Search Here"})
+// })
+
+
+
 // INDEX
 // placing my API call here
-app.get('/breweries/index', function(req, res) {
-	var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
+app.get('/search', function(req, res) {
+	var breweryinfoDB = encodeURIComponent(req.query.location);
+	// var url = 'http://api.brewerydb.com/v2/locations?key=' + process.env.BREWERY_SECRET;
+	// using the generic search link instead
+	var url = 'https://api.brewerydb.com/v2/locations?q=' + breweryinfoDB + '&key=' + process.env.BREWERY_SECRET + '&format=json';
 		console.log(url);
-			if(req.query.brewery) {
+			if(req.query.location) {
 				request.get(url, function(error, response, body) {
 					if (error) {
 						console.log(error);
 					} else {
 						var brewData = JSON.parse(body);
-						res.render('breweries/index');
-					}
-				});
-			}	
+						// console.log(brewData);
+						console.log("about to render search");
+						res.render('search', {brewData:brewData}); // the second one is the instance of the ...something?
+				}
+			});	
+		};		
 });
+
 
 // CREATE
 app.post('/breweries', function(req, res) {
@@ -157,7 +190,7 @@ app.post('/breweries', function(req, res) {
 
 // SHOW
 app.get('/breweries/:id', function(req, res) {
-	db.Brewery.findById(req.params.id, function(err, brewery) {
+	db.Brewery.find(req.params.id, function(err, brewery) {
 		if (err) throw err;
 			res.render("breweries/show", {brewery:brewery});
 	});
@@ -173,6 +206,8 @@ app.put('/breweries/index', function(req, res) {
 	// });
 });
 
+
+
 			// 	if (error) {
 			// 		res.render('errors/404');
 			// 	} else if (!error && response.statusCode === 200) {
@@ -182,18 +217,18 @@ app.put('/breweries/index', function(req, res) {
 			// 	}
 		
 // NOT SURE WHY THIS ISN'T WORKING
-	// var urlGoogle = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=");
-	// 	request.get(urlGoogle, function(error, response, body) {
-	// 			var googleMapData = JSON.parse(body);
-	// 				if (error) {
-	// 					res.render('errors/404');
-	// 				} else if (!error && response.statusCode === 200) {
-	// 					res.send(body);
-	// 				}	else {
-	// 					res.render('errors/404');
-	// 				}		
-	// 	});			
-		// });
+// 	var urlGoogle = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=");
+// 		request.get(urlGoogle, function(error, response, body) {
+// 				var googleMapData = JSON.parse(body);
+// 					if (error) {
+// 						res.render('errors/404');
+// 					} else if (!error && response.statusCode === 200) {
+// 						res.send(body);
+// 					}	else {
+// 						res.render('errors/404');
+// 					}		
+// 		});			
+// 		});
 
 		// breweries.location 	= googleMapData.results[0].formatted_address;
 // 		console.log(googleMapData.results[0].geometry.location.lat);
@@ -328,6 +363,7 @@ app.listen(3000, function() {
 		// requesting location data from google geolocation api 
 		// and replacing search address, lat & lng with google data
 		// var searchLocation = "1075 E 20th St Chico, CA 95928";
+
 		// request.get('https://maps.googleapis.com/maps/api/geocode/json?key='  + process.env.GEOCODE_SECRET + '&address=' + , function(err, response, body) {
 			// var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?key='  + process.env.GEOCODE_SECRET + '1075 E 20th Street Chico CA 95928'")
 		// 	var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=")
