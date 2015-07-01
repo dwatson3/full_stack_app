@@ -3,32 +3,29 @@
 <% include ../partials/header %>
 
 <div id="whole-thing">
+	<div class="style-signup">
+		<span class="brew-signup-page">Sign up for Brew It</span>
 
-<div class="style-signup">
-	<div class="form-info">
-<span class="brew-signup-page">Sign up for Brew It</span>
+			<div class="form-info">
+				<form action="/signup" method="POST">
+					<div class="signup-form">
+						<label for="user">Choose a Username:</label>
+						<input type="text" name="user[username]" id="user" placeholder="Enter username" autofocus>
+					</div>
 
-	<form action="/signup" method="POST">
+			<div class="signup-form">
+				<label for="password">Password:</label>
+				<input type="password" name="user[password]" id="password" placeholder="Enter password" autofocus>
+			</div>
 
-		<div class="signup-form">
-			<label for="user">Choose a Username:</label>
-			<input type="text" name="user[username]" id="user" placeholder="Enter username" autofocus>
-		</div>
-
-		<div class="signup-form">
-			<label for="password">Password:</label>
-			<input type="password" name="user[password]" id="password" placeholder="Enter password" autofocus>
-		</div>
-
-		<input type="submit" value="Sign up" id="signup"> <br>
-		<div class="inquiry">
- 		<a href="/login">Already Have An Account? Login in here</a> <br>
-		<a href="/">Return Home</a>
-	</form>
-		</div>
-
+			<input type="submit" value="Sign up" id="signup"> <br>
+			<div class="inquiry">
+ 					<a href="/login">Already Have An Account? Login in here</a> <br>
+					<a href="/">Return Home</a>
+				</form>
+			</div>
+	</div>
 </div>
-</div>
-</div>	
+<!-- </div>	 -->
 
 <% include ../partials/footer %>

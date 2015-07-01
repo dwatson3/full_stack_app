@@ -1,23 +1,24 @@
 <% include ../partials/header %>
 
-<h3>Welcome Back to Brew It!</h3>
+<div class="red-style">
+	<div class="beige-style">
+		<span class="brew-signup-page"> Welcome Back to Brew It!</span>
+			<form action="/login" method="POST">
+				<div class="login-form">
+					<label for="username">Enter Username:</label>
+					<input type="text" id="username" name="user[username]" autofocus>
+				</div>
 
-<form action="/login" method="POST">
+		<div class="login-form">
+			<label for="password">Password:</label>	
+				<input type="text" id="password" name="user[password]" autofocus>
+				<input type="submit">
+		</div>
+			</form>
+			<a href="/signup">Don't Have An Account? Sign up here</a>
+	</div>
+</div>	
 	
-	<div class="login-form">
-		<label for="username">Enter Username:</label>
-			<input type="text" id="username" name="user[username]" autofocus>
-	</div>
 
-
-	<div class="login-form">
-		<label for="password">Password:</label>	
-			<input type="text" id="password" name="user[password]" autofocus>
-			<input type="submit">
-	</div>
-
-</form>
-
-<a href="/signup">Don't Have An Account? Sign up here</a>
 
 <% include ../partials/footer %>
