@@ -1,3 +1,17 @@
+
+.red-style {
+	background-color: #B40404;
+	border-radius: 20px;
+	margin: 0 auto;
+	position: relative;
+	top: 220px;
+
+	height: 600px;
+	width: 1200px;
+/*	height: 500px;
+	width: 1100px;*/
+}
+
 .beige-style {
 	background-color: #F7F8E0; 
 	border-radius: 20px;
@@ -11,19 +25,6 @@
 	width: 1200px;*/
 }
 
-.red-style {
-	background-color: #B40404;
-	border-radius: 20px;
-	margin: 0 auto;
-	position: relative;
-	top: 250px;
-
-	height: 600px;
-	width: 1200px;
-/*	height: 500px;
-	width: 1100px;*/
-}
-
 .brew-signup-page {
 	font-size: 45px;
 	font-family: 'Lobster', cursive;
@@ -31,4 +32,28 @@
 	top: 40px;
 	bottom: 40px;
 /*	margin: 0 auto;*/
+}
+
+.login-form {
+	font-size: 28px;
+	position: relative;
+/*	padding-top: 120px;*/
+  bottom: 40px;
+	padding-top: 15px;
+}
+
+.big-form {
+	padding-top: 90px;
+	position: relative;
+}
+
+.login-submit {
+	position: relative;
+	top: 20px;
+}
+
+.login-links {
+	font-size: 18px;
+	position: relative;
+	top: 15px;
 }

@@ -3,6 +3,7 @@
 <div class="red-style">
 	<div class="beige-style">
 		<span class="brew-signup-page"> Welcome Back to Brew It!</span>
+		<div class="big-form">
 			<form action="/login" method="POST">
 				<div class="login-form">
 					<label for="username">Enter Username:</label>
@@ -12,10 +13,14 @@
 		<div class="login-form">
 			<label for="password">Password:</label>	
 				<input type="text" id="password" name="user[password]" autofocus>
-				<input type="submit">
+				<br>
+				<input type="submit" class="login-submit">
 		</div>
 			</form>
-			<a href="/signup">Don't Have An Account? Sign up here</a>
+		</div>	
+			<div class="login-links">
+				<a href="/signup">Don't Have An Account? Sign up here</a>
+			</div>	
 	</div>
 </div>	
 	

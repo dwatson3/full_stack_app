@@ -16,7 +16,11 @@
 		
 		<span class="brew-it-search">Brew It Search</span>
 		<div class="welcome-back">
-			<div>Welcome Back <%= user[0].username %>!</div>
+			<% if (user && user.username){ %>
+		   <div> Welcome Back, <%= user.username %>!</div>
+			<% } else { %>
+				<div></div>
+			<% } %>
 		</div>
 	
 <!-- <h4>Logo and/or Map should be here. Map should appear on the SHOW page</h4> -->

@@ -35,10 +35,14 @@ app.use(session({
 
 // ROOT
 app.get('/', function(req, res) {
-	db.User.find(req.session.id, "username", function(err, user) {
-		if (err) throw err;
+	if (req.session && req.session.id) {
+		db.User.findById(req.session.id, "username", function(err, user) {
+			if (err) throw err;
 			res.render("breweries/index", {user:user});
-	});
+		});
+	} else {
+		res.render("breweries/index", {user:undefined});	
+	}
 });
 // app.get('/', function(req, res) {
 // 	// to limit the amount of data received, specify the id and username
